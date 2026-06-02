@@ -1,0 +1,26 @@
+RECHNUNG / INVOICE / FACTURE
+
+Rechnungsnummer / Invoice Number: INV-2026-077
+Datum / Date: 2026-03-20
+Faelligkeitsdatum / Due Date: 2026-04-20
+
+Lieferant / Vendor: EuroTech GmbH
+Adresse: Hauptstrasse 42, 10115 Berlin, Deutschland
+
+Kunde / Client: SpheraX Ltd, Kyiv, Ukraine
+
+Leistungen / Services:
+  Cloud Infrastructure Consulting ............. 800.00 EUR
+  CI/CD Pipeline Setup ........................ 350.00 EUR
+  Security Audit .............................. 100.00 EUR
+
+Gesamtbetrag / Total Amount: 1250.00 EUR
+Mehrwertsteuer / VAT (19%): 237.50 EUR
+
+Rechnungsbetrag / Invoice Total: 1487.50
+Amount: 1487.50
+Currency: EUR
+
+Bankverbindung:
+IBAN: DE89370400440532013000
+BIC: COBADEFFXXX

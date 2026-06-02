@@ -1,0 +1,20 @@
+INVOICE
+
+Invoice Number: INV-2026-001
+Date: 2026-04-03
+Due Date: 2026-05-03
+
+From: SpheraX Ltd, 123 Innovation Street, Kyiv, Ukraine
+To:   Acme Corporation, 456 Business Avenue, Warsaw, Poland
+
+Items:
+  Document Intelligence API License    1 x 1,150.00 EUR
+  Setup and Configuration              1 x   100.75 EUR
+                                       ─────────────────
+Total:  1250.75 EUR
+
+Vendor: SpheraX Ltd
+Amount: 1250.75
+Currency: EUR
+
+Payment: NET 30 | IBAN UA123456789012345678901234567

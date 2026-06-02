@@ -1,0 +1,35 @@
+TAX INVOICE #INV-2026-042
+
+Issued by:
+Global Tech Solutions Inc.
+789 Silicon Valley Road
+San Francisco, CA 94105, USA
+
+Bill To:
+StartupX Corp
+321 Main Street
+New York, NY 10001, USA
+
+Invoice Date: 2026-05-15
+Payment Due: 2026-06-14
+
+Services Rendered:
+  - Software Architecture Consulting (40h @ $150/h) ...... $6,000.00
+  - Code Review and Technical Audit ...................... $   500.00
+  - Infrastructure Setup ................................ $   499.90
+
+Subtotal: $6,999.90
+Tax (10%): $699.99
+
+Total Amount: 7699.89 USD
+
+Invoice Number: INV-2026-042
+Vendor: Global Tech Solutions Inc.
+Amount: 7699.89
+Currency: USD
+Date: 2026-05-15
+
+Wire Transfer to:
+Bank: Wells Fargo
+Account: 1234567890
+Routing: 121000248
