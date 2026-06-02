@@ -1,0 +1,6 @@
+invoice_number,date,vendor,amount,currency,description
+INV-2026-001,2026-04-03,SpheraX Ltd,1250.75,EUR,Document Intelligence API License
+INV-2026-002,2026-04-10,CloudBase Inc,899.00,USD,Cloud Storage Monthly
+INV-2026-003,2026-04-15,DataPipe GmbH,450.00,EUR,ETL Pipeline Consulting
+INV-2026-004,2026-04-20,SecureAudit Ltd,2100.50,GBP,Annual Security Review
+INV-2026-005,2026-04-25,AI Research Co,3500.00,USD,ML Model Training

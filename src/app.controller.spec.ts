@@ -1,22 +1,39 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { HealthCheckService } from '@nestjs/terminus';
+import { HealthController } from './health/health.controller';
+import { PrismaHealthIndicator } from './health/prisma-health.indicator';
+import { RedisHealthIndicator } from './health/redis-health.indicator';
 
-describe('AppController', () => {
-  let appController: AppController;
+const healthCheckServiceMock = {
+  check: jest
+    .fn()
+    .mockResolvedValue({ status: 'ok', info: {}, error: {}, details: {} }),
+};
+const prismaHealthMock = {
+  pingCheck: jest.fn().mockResolvedValue({ database: { status: 'up' } }),
+};
+const redisHealthMock = {
+  pingCheck: jest.fn().mockResolvedValue({ redis: { status: 'up' } }),
+};
+
+describe('HealthController', () => {
+  let controller: HealthController;
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [HealthController],
+      providers: [
+        { provide: HealthCheckService, useValue: healthCheckServiceMock },
+        { provide: PrismaHealthIndicator, useValue: prismaHealthMock },
+        { provide: RedisHealthIndicator, useValue: redisHealthMock },
+      ],
     }).compile();
 
-    appController = app.get<AppController>(AppController);
+    controller = module.get<HealthController>(HealthController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
+  it('returns health check result', async () => {
+    const result = await controller.check();
+    expect(result.status).toBe('ok');
   });
 });

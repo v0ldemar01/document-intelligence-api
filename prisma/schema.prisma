@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum JobStatus {
+  created
+  running
+  completed
+  failed
+}
+
+model Provider {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  displayName  String
+  type         String
+  configuration Json?
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  models AiModel[]
+  flows   Flow[]
+  jobs    Job[]
+
+  @@map("providers")
+}
+
+model AiModel {
+  id           String   @id @default(cuid())
+  providerId   String
+  name         String   @unique
+  displayName  String
+  version      String
+  configuration Json?
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Restrict)
+  flows    Flow[]
+  jobs     Job[]
+
+  @@index([providerId])
+  @@map("models")
+}
+
+model Flow {
+  id             String   @id @default(cuid())
+  providerId     String
+  modelId        String
+  name           String   @unique
+  displayName    String
+  version        String
+  langflowFlowId String
+  configuration  Json?
+  isDefault      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Restrict)
+  model    AiModel  @relation(fields: [modelId], references: [id], onDelete: Restrict)
+  prompts  Prompt[]
+  jobs     Job[]
+
+  @@index([providerId])
+  @@index([modelId])
+  @@map("flows")
+}
+
+model Prompt {
+  id           String   @id @default(cuid())
+  flowId       String
+  name         String   @unique
+  displayName  String
+  version      String
+  template     String   @db.Text
+  outputSchema Json?
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  flow Flow @relation(fields: [flowId], references: [id], onDelete: Restrict)
+  jobs Job[]
+
+  @@index([flowId])
+  @@map("prompts")
+}
+
+model Document {
+  id            String   @id @default(cuid())
+  fileName      String
+  storagePath   String
+  mimeType      String
+  size          Int
+  checksum      String
+  documentType  String
+  extractedText String   @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  jobs Job[]
+
+  @@map("documents")
+}
+
+model Job {
+  id           String    @id @default(cuid())
+  documentId   String
+  providerId   String
+  modelId      String
+  flowId       String
+  promptId     String
+  status       JobStatus @default(created)
+  errorMessage String?
+  retryCount   Int       @default(0)
+  nextRetryAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Restrict)
+  model    AiModel  @relation(fields: [modelId], references: [id], onDelete: Restrict)
+  flow     Flow     @relation(fields: [flowId], references: [id], onDelete: Restrict)
+  prompt   Prompt   @relation(fields: [promptId], references: [id], onDelete: Restrict)
+  result   ExtractionResult?
+
+  @@index([documentId])
+  @@index([providerId])
+  @@index([modelId])
+  @@index([flowId])
+  @@index([promptId])
+  @@index([status])
+  @@index([nextRetryAt])
+  @@map("jobs")
+}
+
+model ExtractionResult {
+  id          String   @id @default(cuid())
+  jobId       String   @unique
+  payload     Json
+  confidence  Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@map("results")
+}

@@ -1,0 +1,15 @@
+Receipt / Informal Invoice
+
+Hi, here is what I owe you for the freelance work in March.
+
+Work done: Backend API development and database design.
+Time spent: approximately 3 weeks.
+
+Total: 2500.00 GBP
+
+Please send your bank details and I'll transfer by end of week.
+
+Thanks,
+John Smith
+Freelance Developer
+john@example.com
