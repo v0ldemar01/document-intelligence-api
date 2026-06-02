@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-document_intelligence}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     healthcheck:
@@ -75,7 +75,7 @@ services:
       - "${API_PORT:-3000}:3000"
     environment:
       PORT: ${PORT:-3000}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-document_intelligence}?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-document_intelligence}?schema=public
       REDIS_URL: redis://redis:6379
       EXTRACTION_ENGINE: ${EXTRACTION_ENGINE:-langflow}
       LANGFLOW_BASE_URL: http://langflow:7860/api/v1
@@ -85,8 +85,8 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       S3_ENDPOINT: http://localstack:4566
       AWS_REGION: ${AWS_REGION:-us-east-1}
-      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-test}
-      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-test}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       S3_BUCKET: ${S3_BUCKET:-document-intelligence}
       S3_PREFIX: ${S3_PREFIX:-documents}
       S3_FORCE_PATH_STYLE: "true"
